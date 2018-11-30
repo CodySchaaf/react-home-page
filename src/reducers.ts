@@ -1,6 +1,6 @@
 import {AnyAction, ReducersMapObject} from 'redux';
 import {InitAction} from "./reducers/InitAction";
-import emailReducer, {State} from "./services/email/reducer";
+import emailReducer, {State} from "./domains/email/reducer";
 
 export const configureGlobalReducers = (): AppReducersMapObject => ({
   email: emailReducer

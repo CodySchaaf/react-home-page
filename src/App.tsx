@@ -1,4 +1,4 @@
-import React, {useState, ChangeEvent, Component, FormEvent, ReactEventHandler, SyntheticEvent} from 'react';
+import React, {Component} from 'react';
 
 import logo from './logo.svg';
 
@@ -7,7 +7,7 @@ import {theme} from "./theme/globalStyles";
 import GetEmail from "./GetEmail";
 import configureStore from "./configureStore";
 import {Provider} from "react-redux";
-import {initialState} from "./services/email/reducer";
+// import {initialState} from "./domains/email/reducer";
 
 const AppWrapper = styled.div`
   text-align: center;
@@ -51,7 +51,8 @@ const EmojiWrapper = styled.span.attrs({
   role: 'img'
 })``
 
-const store = configureStore(initialState);
+// const store = configureStore(initialState);
+const store = configureStore();
 
 class App extends Component {
   render() {

@@ -1,60 +1,55 @@
-import {createStructuredSelector} from "reselect";
-import selectEmail from "./services/email/selectors";
+import {selectEmailSubmittingStatus} from "./domains/email/selectors";
 
-import { compose, Dispatch } from 'redux';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
 import * as React from "react";
-import {ChangeEvent, FormEvent} from "react";
-import {State} from "./services/email/reducer";
-import {saveEmailAction} from "./services/email/actions";
+import {FormEventHandler, useState} from "react";
+import {EmailSubmittedStatus} from "./domains/email/reducer";
+import * as actions from "./domains/email/actions";
+import {AppState} from "./reducers";
 
 
-export interface Props {
-  dispatch: Dispatch;
-  email: State;
+export interface OwnProps {}
+
+export interface DispatchProps {
+  saveEmailAction: typeof actions.saveEmailAction;
 }
 
-class GetEmail extends React.Component<Props> {
-  // const {value, reset, onChange} = useInputState('');
+export interface StateProps {
+  email: EmailSubmittedStatus;
+}
 
-  private handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    this.setState({value: event.target.value});
-  }
+type Props = DispatchProps & StateProps & OwnProps;
 
-  handleSubmit = (event: FormEvent) => {
-    this.props.dispatch(saveEmailAction(this.state.value))
+function GetEmail({saveEmailAction, email}: Props) {
+  const [input, setInput] = useState("");
+  const handleSubmit: FormEventHandler = event => {
+    saveEmailAction(input);
     event.preventDefault();
-  }
+  };
 
-  state = {value: ""};
+  console.log("email",email);
 
-  render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <label>
           Name:
-          <input type="text" value={this.state.value} onChange={this.handleChange}/>
+          <input type="text" value={input} onChange={event => setInput(event.target.value)}/>
         </label>
         <input type="submit" value="Submit"/>
       </form>
     );
-  }
+  // }
 
 }
 
-const mapStateToProps = createStructuredSelector({
-  email: selectEmail(),
+const mapStateToProps = (state: AppState, _: OwnProps): StateProps => ({
+  email: selectEmailSubmittingStatus(state),
 });
 
-function mapDispatchToProps(dispatch: Dispatch) {
-  return {
-    dispatch,
-  };
-}
-
-const withConnect = connect(
+const withConnect = connect<StateProps, DispatchProps, OwnProps>(
   mapStateToProps,
-  mapDispatchToProps,
+  actions,
 );
 
 export default compose(withConnect)(GetEmail);

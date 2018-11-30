@@ -4,15 +4,15 @@ import createSagaMiddleware from 'redux-saga'
 import {rootSaga} from "./sagas";
 
 
-export default function configureStore(initialState = {}) {
-  const sagaMiddleware = createSagaMiddleware()
+export default function configureStore() {
+  const sagaMiddleware = createSagaMiddleware();
   const store = createStore(
     createReducer<AppState, AppAction>(configureGlobalReducers()),
     applyMiddleware(sagaMiddleware)
-  )
+  );
   sagaMiddleware.run(rootSaga);
 
-  const action = (type: any) => store.dispatch({type})
+  // const action = (type: any) => store.dispatch({type});
 
   return store;
 }

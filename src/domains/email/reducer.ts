@@ -3,11 +3,18 @@ import {getType} from "typesafe-actions";
 import {defaultAction, saveEmailAction, saveEmailActionError, saveEmailActionSuccess} from "./actions";
 
 export interface State {
-  readonly emailSubmitted: boolean;
+  readonly emailSubmittedStatus: EmailSubmittedStatus;
+}
+
+export enum EmailSubmittedStatus {
+  default,
+  submitting,
+  success,
+  error,
 }
 
 export const initialState = (): State => ({
-  emailSubmitted: false
+  emailSubmittedStatus: EmailSubmittedStatus.default,
 });
 
 function emailReducer(state = initialState(), action: AnyAction): State {
@@ -16,20 +23,20 @@ function emailReducer(state = initialState(), action: AnyAction): State {
       console.log(saveEmailAction);
       return {
         ...state,
-        emailSubmitted: false,
-      }
+        emailSubmittedStatus: EmailSubmittedStatus.submitting,
+      };
     case getType(saveEmailActionSuccess):
       return {
         ...state,
-        emailSubmitted: true,
+        emailSubmittedStatus: EmailSubmittedStatus.success,
         ...action.payload
-      }
+      };
     case getType(saveEmailActionError):
       return {
         ...state,
-        emailSubmitted: false,
+        emailSubmittedStatus: EmailSubmittedStatus.error,
         ...action.payload
-      }
+      };
     case getType(defaultAction):
       return state;
     default:

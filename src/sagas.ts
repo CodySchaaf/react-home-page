@@ -1,6 +1,6 @@
 import { all, call } from 'redux-saga/effects';
 
-import emailSaga from "./services/email/saga";
+import emailSaga from "./domains/email/saga";
 
 export const sagaMap = {
   emailSaga,

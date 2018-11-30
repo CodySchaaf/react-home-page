@@ -1,4 +1,4 @@
-import {ChangeEvent, FormEvent, SyntheticEvent, useState} from 'react';
+import {ChangeEvent, useState} from 'react';
 
 export default (initialValue: string) => {
   const [value, setValue] = useState(initialValue);
