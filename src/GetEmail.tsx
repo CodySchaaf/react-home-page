@@ -1,7 +1,8 @@
 import {selectEmailSubmittingStatus} from "./domains/email/selectors";
 
-import { compose } from 'redux';
-import { connect } from 'react-redux';
+import {CometSpinLoader} from 'react-css-loaders';
+import {compose} from 'redux';
+import {connect} from 'react-redux';
 import * as React from "react";
 import {FormEventHandler, useState} from "react";
 import {EmailSubmittedStatus} from "./domains/email/reducer";
@@ -23,13 +24,14 @@ type Props = DispatchProps & StateProps & OwnProps;
 
 function GetEmail({saveEmailAction, email}: Props) {
   const [input, setInput] = useState("");
+
   const handleSubmit: FormEventHandler = event => {
     saveEmailAction(input);
     event.preventDefault();
   };
 
-  console.log("email",email);
 
+  if (email === EmailSubmittedStatus.default) {
     return (
       <form onSubmit={handleSubmit}>
         <label>
@@ -39,6 +41,11 @@ function GetEmail({saveEmailAction, email}: Props) {
         <input type="submit" value="Submit"/>
       </form>
     );
+  } else /* if (email.submitting) */ {
+    return (
+      <CometSpinLoader color={'white'} size={25}/>
+    )
+  }
   // }
 
 }

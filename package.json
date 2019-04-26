@@ -5,13 +5,14 @@
   "dependencies": {
     "axios": "^0.18.0",
     "react": "^16.7.0-alpha.0",
+    "react-css-loaders": "0.0.5",
     "react-dom": "^16.7.0-alpha.0",
+    "react-redux": "5.0.7",
     "react-scripts": "2.1.1",
     "redux": "^4.0.1",
     "redux-saga": "0.16.0",
     "reselect": "3.0.1",
     "styled-components": "^4.0.3",
-    "react-redux": "5.0.7",
     "typesafe-actions": "^2.0.4",
     "typescript": "3.0.1"
   },

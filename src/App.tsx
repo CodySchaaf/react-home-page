@@ -30,7 +30,6 @@ const AppLogo = styled.img`
 `
 const AppHeader = styled.div`
   background-color: #222;
-  height: 150px;
   padding: 20px;
   color: white;
 `
@@ -58,22 +57,24 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <AppWrapper>
-          <AppHeader>
-            <AppLogo src={logo} alt="logo"/>
-            <AppTitle>Welcome to React</AppTitle>
-            <GetEmail/>
-          </AppHeader>
-          <AppIntro >
-            Bootstrapped with <code>create-react-app</code>.
-          </AppIntro>
-          <AppIntro>
-            Components styled with <code>styled-components</code>{' '}
-            <EmojiWrapper aria-label="nail polish">💅</EmojiWrapper>
-          </AppIntro>
-        </AppWrapper>
-      </ThemeProvider>
+        <ThemeProvider theme={theme}>
+          <AppWrapper>
+            <AppHeader>
+              <AppLogo src={logo} alt="logo"/>
+              <AppTitle>Welcome to React</AppTitle>
+              <div>
+                <GetEmail/>
+              </div>
+            </AppHeader>
+            <AppIntro>
+              Bootstrapped with <code>create-react-app</code>.
+            </AppIntro>
+            <AppIntro>
+              Components styled with <code>styled-components</code>{' '}
+              <EmojiWrapper aria-label="nail polish">💅</EmojiWrapper>
+            </AppIntro>
+          </AppWrapper>
+        </ThemeProvider>
       </Provider>
     );
   }
